@@ -918,294 +918,295 @@
 <a name="ln905">          refkey(b, enditr-&gt;node, enditr-&gt;i);</a>
 <a name="ln906">        } else {</a>
 <a name="ln907">          past_right = true; // NOLINT</a>
-<a name="ln908">          break;</a>
-<a name="ln909">        }</a>
-<a name="ln910">      }</a>
-<a name="ln911"> </a>
-<a name="ln912">      if (rawkey(itr).id == rawkey(enditr).id) {</a>
-<a name="ln913">        // actually, will be past_right after this key</a>
-<a name="ln914">        past_right = true;</a>
-<a name="ln915">      }</a>
-<a name="ln916"> </a>
-<a name="ln917">      moved = true;</a>
-<a name="ln918">      if (itr-&gt;node-&gt;level) {</a>
-<a name="ln919">        oldbase[itr-&gt;lvl+1] = rawkey(itr).pos;</a>
-<a name="ln920">        unrelative(oldbase[itr-&gt;lvl], &amp;oldbase[itr-&gt;lvl+1]);</a>
-<a name="ln921">        rawkey(itr).pos = loc_start;</a>
-<a name="ln922">        marktree_itr_next_skip(b, itr, false, oldbase);</a>
-<a name="ln923">      } else {</a>
-<a name="ln924">        rawkey(itr).pos = loc_start;</a>
-<a name="ln925">        if (itr-&gt;i &lt; itr-&gt;node-&gt;n-1) {</a>
-<a name="ln926">          itr-&gt;i++;</a>
-<a name="ln927">          if (!past_right) {</a>
-<a name="ln928">            goto continue_same_node;</a>
-<a name="ln929">          }</a>
-<a name="ln930">        } else {</a>
-<a name="ln931">          marktree_itr_next(b, itr);</a>
-<a name="ln932">        }</a>
-<a name="ln933">      }</a>
-<a name="ln934">    }</a>
-<a name="ln935">    while (itr-&gt;node) {</a>
-<a name="ln936">      mtpos_t loc_new = new_extent;</a>
-<a name="ln937">      relative(itr-&gt;pos, &amp;loc_new);</a>
-<a name="ln938">      mtpos_t limit = old_extent;</a>
-<a name="ln939"> </a>
-<a name="ln940">      relative(oldbase[itr-&gt;lvl], &amp;limit);</a>
-<a name="ln941"> </a>
-<a name="ln942">past_continue_same_node:</a>
-<a name="ln943"> </a>
-<a name="ln944">      if (pos_leq(limit, rawkey(itr).pos)) {</a>
-<a name="ln945">        break;</a>
-<a name="ln946">      }</a>
-<a name="ln947"> </a>
-<a name="ln948">      mtpos_t oldpos = rawkey(itr).pos;</a>
-<a name="ln949">      rawkey(itr).pos = loc_new;</a>
-<a name="ln950">      moved = true;</a>
-<a name="ln951">      if (itr-&gt;node-&gt;level) {</a>
-<a name="ln952">        oldbase[itr-&gt;lvl+1] = oldpos;</a>
-<a name="ln953">        unrelative(oldbase[itr-&gt;lvl], &amp;oldbase[itr-&gt;lvl+1]);</a>
-<a name="ln954"> </a>
-<a name="ln955">        marktree_itr_next_skip(b, itr, false, oldbase);</a>
-<a name="ln956">      } else {</a>
-<a name="ln957">        if (itr-&gt;i &lt; itr-&gt;node-&gt;n-1) {</a>
-<a name="ln958">          itr-&gt;i++;</a>
-<a name="ln959">          goto past_continue_same_node;</a>
-<a name="ln960">        } else {</a>
-<a name="ln961">          marktree_itr_next(b, itr);</a>
-<a name="ln962">        }</a>
-<a name="ln963">      }</a>
-<a name="ln964">    }</a>
-<a name="ln965">  }</a>
-<a name="ln966"> </a>
+<a name="ln908">          (void)past_right;</a>
+<a name="ln909">          break;</a>
+<a name="ln910">        }</a>
+<a name="ln911">      }</a>
+<a name="ln912"> </a>
+<a name="ln913">      if (rawkey(itr).id == rawkey(enditr).id) {</a>
+<a name="ln914">        // actually, will be past_right after this key</a>
+<a name="ln915">        past_right = true;</a>
+<a name="ln916">      }</a>
+<a name="ln917"> </a>
+<a name="ln918">      moved = true;</a>
+<a name="ln919">      if (itr-&gt;node-&gt;level) {</a>
+<a name="ln920">        oldbase[itr-&gt;lvl+1] = rawkey(itr).pos;</a>
+<a name="ln921">        unrelative(oldbase[itr-&gt;lvl], &amp;oldbase[itr-&gt;lvl+1]);</a>
+<a name="ln922">        rawkey(itr).pos = loc_start;</a>
+<a name="ln923">        marktree_itr_next_skip(b, itr, false, oldbase);</a>
+<a name="ln924">      } else {</a>
+<a name="ln925">        rawkey(itr).pos = loc_start;</a>
+<a name="ln926">        if (itr-&gt;i &lt; itr-&gt;node-&gt;n-1) {</a>
+<a name="ln927">          itr-&gt;i++;</a>
+<a name="ln928">          if (!past_right) {</a>
+<a name="ln929">            goto continue_same_node;</a>
+<a name="ln930">          }</a>
+<a name="ln931">        } else {</a>
+<a name="ln932">          marktree_itr_next(b, itr);</a>
+<a name="ln933">        }</a>
+<a name="ln934">      }</a>
+<a name="ln935">    }</a>
+<a name="ln936">    while (itr-&gt;node) {</a>
+<a name="ln937">      mtpos_t loc_new = new_extent;</a>
+<a name="ln938">      relative(itr-&gt;pos, &amp;loc_new);</a>
+<a name="ln939">      mtpos_t limit = old_extent;</a>
+<a name="ln940"> </a>
+<a name="ln941">      relative(oldbase[itr-&gt;lvl], &amp;limit);</a>
+<a name="ln942"> </a>
+<a name="ln943">past_continue_same_node:</a>
+<a name="ln944"> </a>
+<a name="ln945">      if (pos_leq(limit, rawkey(itr).pos)) {</a>
+<a name="ln946">        break;</a>
+<a name="ln947">      }</a>
+<a name="ln948"> </a>
+<a name="ln949">      mtpos_t oldpos = rawkey(itr).pos;</a>
+<a name="ln950">      rawkey(itr).pos = loc_new;</a>
+<a name="ln951">      moved = true;</a>
+<a name="ln952">      if (itr-&gt;node-&gt;level) {</a>
+<a name="ln953">        oldbase[itr-&gt;lvl+1] = oldpos;</a>
+<a name="ln954">        unrelative(oldbase[itr-&gt;lvl], &amp;oldbase[itr-&gt;lvl+1]);</a>
+<a name="ln955"> </a>
+<a name="ln956">        marktree_itr_next_skip(b, itr, false, oldbase);</a>
+<a name="ln957">      } else {</a>
+<a name="ln958">        if (itr-&gt;i &lt; itr-&gt;node-&gt;n-1) {</a>
+<a name="ln959">          itr-&gt;i++;</a>
+<a name="ln960">          goto past_continue_same_node;</a>
+<a name="ln961">        } else {</a>
+<a name="ln962">          marktree_itr_next(b, itr);</a>
+<a name="ln963">        }</a>
+<a name="ln964">      }</a>
+<a name="ln965">    }</a>
+<a name="ln966">  }</a>
 <a name="ln967"> </a>
-<a name="ln968">  while (itr-&gt;node) {</a>
-<a name="ln969">    unrelative(oldbase[itr-&gt;lvl], &amp;rawkey(itr).pos);</a>
-<a name="ln970">    int realrow = rawkey(itr).pos.row;</a>
-<a name="ln971">    assert(realrow &gt;= old_extent.row);</a>
-<a name="ln972">    bool done = false;</a>
-<a name="ln973">    if (realrow == old_extent.row) {</a>
-<a name="ln974">      if (delta.col) {</a>
-<a name="ln975">        rawkey(itr).pos.col += delta.col;</a>
-<a name="ln976">        moved = true;</a>
-<a name="ln977">      }</a>
-<a name="ln978">    } else {</a>
-<a name="ln979">      if (same_line) {</a>
-<a name="ln980">        // optimization: column only adjustment can skip remaining rows</a>
-<a name="ln981">        done = true;</a>
-<a name="ln982">      }</a>
-<a name="ln983">    }</a>
-<a name="ln984">    if (delta.row) {</a>
-<a name="ln985">      rawkey(itr).pos.row += delta.row;</a>
-<a name="ln986">      moved = true;</a>
-<a name="ln987">    }</a>
-<a name="ln988">    relative(itr-&gt;pos, &amp;rawkey(itr).pos);</a>
-<a name="ln989">    if (done) {</a>
-<a name="ln990">      break;</a>
-<a name="ln991">    }</a>
-<a name="ln992">    marktree_itr_next_skip(b, itr, true, NULL);</a>
-<a name="ln993">  }</a>
-<a name="ln994">  return moved;</a>
-<a name="ln995">}</a>
-<a name="ln996"> </a>
-<a name="ln997">void marktree_move_region(MarkTree *b,</a>
-<a name="ln998">                          int start_row, colnr_T start_col,</a>
-<a name="ln999">                          int extent_row, colnr_T extent_col,</a>
-<a name="ln1000">                          int new_row, colnr_T new_col)</a>
-<a name="ln1001">{</a>
-<a name="ln1002">  mtpos_t start = { start_row, start_col }, size = { extent_row, extent_col };</a>
-<a name="ln1003">  mtpos_t end = size;</a>
-<a name="ln1004">  unrelative(start, &amp;end);</a>
-<a name="ln1005">  MarkTreeIter itr[1] = { 0 };</a>
-<a name="ln1006">  marktree_itr_get_ext(b, start, itr, false, true, NULL);</a>
-<a name="ln1007">  kvec_t(mtkey_t) saved = KV_INITIAL_VALUE;</a>
-<a name="ln1008">  while (itr-&gt;node) {</a>
-<a name="ln1009">    mtpos_t pos = marktree_itr_pos(itr);</a>
-<a name="ln1010">    if (!pos_leq(pos, end) || (pos.row == end.row &amp;&amp; pos.col == end.col</a>
-<a name="ln1011">                               &amp;&amp; rawkey(itr).id &amp; RIGHT_GRAVITY)) {</a>
-<a name="ln1012">      break;</a>
-<a name="ln1013">    }</a>
-<a name="ln1014">    relative(start, &amp;pos);</a>
-<a name="ln1015">    kv_push(saved, ((mtkey_t){ .pos = pos, .id = rawkey(itr).id }));</a>
-<a name="ln1016">    marktree_del_itr(b, itr, false);</a>
-<a name="ln1017">  }</a>
-<a name="ln1018"> </a>
-<a name="ln1019">  marktree_splice(b, start.row, start.col, size.row, size.col, 0, 0);</a>
-<a name="ln1020">  mtpos_t new = { new_row, new_col };</a>
-<a name="ln1021">  marktree_splice(b, new.row, new.col,</a>
-<a name="ln1022">                  0, 0, size.row, size.col);</a>
-<a name="ln1023"> </a>
-<a name="ln1024">  for (size_t i = 0; i &lt; kv_size(saved); i++) {</a>
-<a name="ln1025">    mtkey_t item = kv_A(saved, i);</a>
-<a name="ln1026">    unrelative(new, &amp;item.pos);</a>
-<a name="ln1027">    marktree_put_key(b, item.pos.row, item.pos.col, item.id);</a>
-<a name="ln1028">  }</a>
-<a name="ln1029">  kv_destroy(saved);</a>
-<a name="ln1030">}</a>
-<a name="ln1031"> </a>
-<a name="ln1032">/// @param itr OPTIONAL. set itr to pos.</a>
-<a name="ln1033">mtpos_t marktree_lookup(MarkTree *b, uint64_t id, MarkTreeIter *itr)</a>
-<a name="ln1034">{</a>
-<a name="ln1035">  mtnode_t *n = pmap_get(uint64_t)(b-&gt;id2node, id);</a>
-<a name="ln1036">  if (n == NULL) {</a>
-<a name="ln1037">    if (itr) {</a>
-<a name="ln1038">      itr-&gt;node = NULL;</a>
-<a name="ln1039">    }</a>
-<a name="ln1040">    return (mtpos_t){ -1, -1 };</a>
-<a name="ln1041">  }</a>
-<a name="ln1042">  int i = 0;</a>
-<a name="ln1043">  for (i = 0; i &lt; n-&gt;n; i++) {</a>
-<a name="ln1044">    if (ANTIGRAVITY(n-&gt;key[i].id) == id) {</a>
-<a name="ln1045">      goto found;</a>
-<a name="ln1046">    }</a>
-<a name="ln1047">  }</a>
-<a name="ln1048">  abort();</a>
-<a name="ln1049">found: {}</a>
-<a name="ln1050">  mtpos_t pos = n-&gt;key[i].pos;</a>
-<a name="ln1051">  if (itr) {</a>
-<a name="ln1052">    itr-&gt;i = i;</a>
-<a name="ln1053">    itr-&gt;node = n;</a>
-<a name="ln1054">    itr-&gt;lvl = b-&gt;root-&gt;level - n-&gt;level;</a>
-<a name="ln1055">  }</a>
-<a name="ln1056">  while (n-&gt;parent != NULL) {</a>
-<a name="ln1057">    mtnode_t *p = n-&gt;parent;</a>
-<a name="ln1058">    for (i = 0; i &lt; p-&gt;n+1; i++) {</a>
-<a name="ln1059">      if (p-&gt;ptr[i] == n) {</a>
-<a name="ln1060">        goto found_node;</a>
-<a name="ln1061">      }</a>
-<a name="ln1062">    }</a>
-<a name="ln1063">    abort();</a>
-<a name="ln1064">found_node:</a>
-<a name="ln1065">    if (itr) {</a>
-<a name="ln1066">      itr-&gt;s[b-&gt;root-&gt;level-p-&gt;level].i = i;</a>
-<a name="ln1067">    }</a>
-<a name="ln1068">    if (i &gt; 0) {</a>
-<a name="ln1069">      unrelative(p-&gt;key[i-1].pos, &amp;pos);</a>
-<a name="ln1070">    }</a>
-<a name="ln1071">    n = p;</a>
-<a name="ln1072">  }</a>
-<a name="ln1073">  if (itr) {</a>
-<a name="ln1074">    marktree_itr_fix_pos(b, itr);</a>
-<a name="ln1075">  }</a>
-<a name="ln1076">  return pos;</a>
-<a name="ln1077">}</a>
-<a name="ln1078"> </a>
-<a name="ln1079">static void marktree_itr_fix_pos(MarkTree *b, MarkTreeIter *itr)</a>
-<a name="ln1080">{</a>
-<a name="ln1081">  itr-&gt;pos = (mtpos_t){ 0, 0 };</a>
-<a name="ln1082">  mtnode_t *x = b-&gt;root;</a>
-<a name="ln1083">  for (int lvl = 0; lvl &lt; itr-&gt;lvl; lvl++) {</a>
-<a name="ln1084">    itr-&gt;s[lvl].oldcol = itr-&gt;pos.col;</a>
-<a name="ln1085">    int i = itr-&gt;s[lvl].i;</a>
-<a name="ln1086">    if (i &gt; 0) {</a>
-<a name="ln1087">      compose(&amp;itr-&gt;pos, x-&gt;key[i-1].pos);</a>
-<a name="ln1088">    }</a>
-<a name="ln1089">    assert(x-&gt;level);</a>
-<a name="ln1090">    x = x-&gt;ptr[i];</a>
-<a name="ln1091">  }</a>
-<a name="ln1092">  assert(x == itr-&gt;node);</a>
-<a name="ln1093">}</a>
-<a name="ln1094"> </a>
-<a name="ln1095">void marktree_check(MarkTree *b)</a>
-<a name="ln1096">{</a>
-<a name="ln1097">#ifndef NDEBUG</a>
-<a name="ln1098">  if (b-&gt;root == NULL) {</a>
-<a name="ln1099">    assert(b-&gt;n_keys == 0);</a>
-<a name="ln1100">    assert(b-&gt;n_nodes == 0);</a>
-<a name="ln1101">    assert(b-&gt;id2node == NULL || map_size(b-&gt;id2node) == 0);</a>
-<a name="ln1102">    return;</a>
-<a name="ln1103">  }</a>
-<a name="ln1104"> </a>
-<a name="ln1105">  mtpos_t dummy;</a>
-<a name="ln1106">  bool last_right = false;</a>
-<a name="ln1107">  size_t nkeys = check_node(b, b-&gt;root, &amp;dummy, &amp;last_right);</a>
-<a name="ln1108">  assert(b-&gt;n_keys == nkeys);</a>
-<a name="ln1109">  assert(b-&gt;n_keys == map_size(b-&gt;id2node));</a>
-<a name="ln1110">#else</a>
-<a name="ln1111">  // Do nothing, as assertions are required</a>
-<a name="ln1112">  (void)b;</a>
-<a name="ln1113">#endif</a>
-<a name="ln1114">}</a>
-<a name="ln1115"> </a>
-<a name="ln1116">#ifndef NDEBUG</a>
-<a name="ln1117">static size_t check_node(MarkTree *b, mtnode_t *x,</a>
-<a name="ln1118">                         mtpos_t *last, bool *last_right)</a>
-<a name="ln1119">{</a>
-<a name="ln1120">  assert(x-&gt;n &lt;= 2 * T - 1);</a>
-<a name="ln1121">  // TODO(bfredl): too strict if checking &quot;in repair&quot; post-delete tree.</a>
-<a name="ln1122">  assert(x-&gt;n &gt;= (x != b-&gt;root ? T-1 : 0));</a>
-<a name="ln1123">  size_t n_keys = (size_t)x-&gt;n;</a>
-<a name="ln1124"> </a>
-<a name="ln1125">  for (int i = 0; i &lt; x-&gt;n; i++) {</a>
-<a name="ln1126">    if (x-&gt;level) {</a>
-<a name="ln1127">      n_keys += check_node(b, x-&gt;ptr[i], last, last_right);</a>
-<a name="ln1128">    } else {</a>
-<a name="ln1129">      *last = (mtpos_t) { 0, 0 };</a>
-<a name="ln1130">    }</a>
-<a name="ln1131">    if (i &gt; 0) {</a>
-<a name="ln1132">      unrelative(x-&gt;key[i-1].pos, last);</a>
-<a name="ln1133">    }</a>
-<a name="ln1134">    if (x-&gt;level) {</a>
-<a name="ln1135">    }</a>
-<a name="ln1136">    assert(pos_leq(*last, x-&gt;key[i].pos));</a>
-<a name="ln1137">    if (last-&gt;row == x-&gt;key[i].pos.row &amp;&amp; last-&gt;col == x-&gt;key[i].pos.col) {</a>
-<a name="ln1138">      assert(!*last_right || IS_RIGHT(x-&gt;key[i].id));</a>
-<a name="ln1139">    }</a>
-<a name="ln1140">    *last_right = IS_RIGHT(x-&gt;key[i].id);</a>
-<a name="ln1141">    assert(x-&gt;key[i].pos.col &gt;= 0);</a>
-<a name="ln1142">    assert(pmap_get(uint64_t)(b-&gt;id2node, ANTIGRAVITY(x-&gt;key[i].id)) == x);</a>
-<a name="ln1143">  }</a>
-<a name="ln1144"> </a>
-<a name="ln1145">  if (x-&gt;level) {</a>
-<a name="ln1146">    n_keys += check_node(b, x-&gt;ptr[x-&gt;n], last, last_right);</a>
-<a name="ln1147">    unrelative(x-&gt;key[x-&gt;n-1].pos, last);</a>
-<a name="ln1148"> </a>
-<a name="ln1149">    for (int i = 0; i &lt; x-&gt;n+1; i++) {</a>
-<a name="ln1150">      assert(x-&gt;ptr[i]-&gt;parent == x);</a>
-<a name="ln1151">      assert(x-&gt;ptr[i]-&gt;level == x-&gt;level-1);</a>
-<a name="ln1152">      // PARANOIA: check no double node ref</a>
-<a name="ln1153">      for (int j = 0; j &lt; i; j++) {</a>
-<a name="ln1154">        assert(x-&gt;ptr[i] != x-&gt;ptr[j]);</a>
-<a name="ln1155">      }</a>
-<a name="ln1156">    }</a>
-<a name="ln1157">  } else {</a>
-<a name="ln1158">    *last = x-&gt;key[x-&gt;n-1].pos;</a>
-<a name="ln1159">  }</a>
-<a name="ln1160">  return n_keys;</a>
-<a name="ln1161">}</a>
-<a name="ln1162">#endif</a>
-<a name="ln1163"> </a>
-<a name="ln1164">char *mt_inspect_rec(MarkTree *b)</a>
-<a name="ln1165">{</a>
-<a name="ln1166">  garray_T ga;</a>
-<a name="ln1167">  ga_init(&amp;ga, (int)sizeof(char), 80);</a>
-<a name="ln1168">  mtpos_t p = { 0, 0 };</a>
-<a name="ln1169">  mt_inspect_node(b, &amp;ga, b-&gt;root, p);</a>
-<a name="ln1170">  return ga.ga_data;</a>
-<a name="ln1171">}</a>
-<a name="ln1172"> </a>
-<a name="ln1173">void mt_inspect_node(MarkTree *b, garray_T *ga, mtnode_t *n, mtpos_t off)</a>
-<a name="ln1174">{</a>
-<a name="ln1175">  static char buf[1024];</a>
-<a name="ln1176">#define GA_PUT(x) ga_concat(ga, (char_u *)(x))</a>
-<a name="ln1177">  GA_PUT(&quot;[&quot;);</a>
-<a name="ln1178">  if (n-&gt;level) {</a>
-<a name="ln1179">    mt_inspect_node(b, ga, n-&gt;ptr[0], off);</a>
-<a name="ln1180">  }</a>
-<a name="ln1181">  for (int i = 0; i &lt; n-&gt;n; i++) {</a>
-<a name="ln1182">    mtpos_t p = n-&gt;key[i].pos;</a>
-<a name="ln1183">    unrelative(off, &amp;p);</a>
-<a name="ln1184">    snprintf((char *)buf, sizeof(buf), &quot;%d/%d&quot;, p.row, p.col);</a>
-<a name="ln1185">    GA_PUT(buf);</a>
-<a name="ln1186">    if (n-&gt;level) {</a>
-<a name="ln1187">      mt_inspect_node(b, ga, n-&gt;ptr[i+1], p);</a>
-<a name="ln1188">    } else {</a>
-<a name="ln1189">      GA_PUT(&quot;,&quot;);</a>
-<a name="ln1190">    }</a>
-<a name="ln1191">  }</a>
-<a name="ln1192">  GA_PUT(&quot;]&quot;);</a>
-<a name="ln1193">#undef GA_PUT</a>
-<a name="ln1194">}</a>
-<a name="ln1195"> </a>
+<a name="ln968"> </a>
+<a name="ln969">  while (itr-&gt;node) {</a>
+<a name="ln970">    unrelative(oldbase[itr-&gt;lvl], &amp;rawkey(itr).pos);</a>
+<a name="ln971">    int realrow = rawkey(itr).pos.row;</a>
+<a name="ln972">    assert(realrow &gt;= old_extent.row);</a>
+<a name="ln973">    bool done = false;</a>
+<a name="ln974">    if (realrow == old_extent.row) {</a>
+<a name="ln975">      if (delta.col) {</a>
+<a name="ln976">        rawkey(itr).pos.col += delta.col;</a>
+<a name="ln977">        moved = true;</a>
+<a name="ln978">      }</a>
+<a name="ln979">    } else {</a>
+<a name="ln980">      if (same_line) {</a>
+<a name="ln981">        // optimization: column only adjustment can skip remaining rows</a>
+<a name="ln982">        done = true;</a>
+<a name="ln983">      }</a>
+<a name="ln984">    }</a>
+<a name="ln985">    if (delta.row) {</a>
+<a name="ln986">      rawkey(itr).pos.row += delta.row;</a>
+<a name="ln987">      moved = true;</a>
+<a name="ln988">    }</a>
+<a name="ln989">    relative(itr-&gt;pos, &amp;rawkey(itr).pos);</a>
+<a name="ln990">    if (done) {</a>
+<a name="ln991">      break;</a>
+<a name="ln992">    }</a>
+<a name="ln993">    marktree_itr_next_skip(b, itr, true, NULL);</a>
+<a name="ln994">  }</a>
+<a name="ln995">  return moved;</a>
+<a name="ln996">}</a>
+<a name="ln997"> </a>
+<a name="ln998">void marktree_move_region(MarkTree *b,</a>
+<a name="ln999">                          int start_row, colnr_T start_col,</a>
+<a name="ln1000">                          int extent_row, colnr_T extent_col,</a>
+<a name="ln1001">                          int new_row, colnr_T new_col)</a>
+<a name="ln1002">{</a>
+<a name="ln1003">  mtpos_t start = { start_row, start_col }, size = { extent_row, extent_col };</a>
+<a name="ln1004">  mtpos_t end = size;</a>
+<a name="ln1005">  unrelative(start, &amp;end);</a>
+<a name="ln1006">  MarkTreeIter itr[1] = { 0 };</a>
+<a name="ln1007">  marktree_itr_get_ext(b, start, itr, false, true, NULL);</a>
+<a name="ln1008">  kvec_t(mtkey_t) saved = KV_INITIAL_VALUE;</a>
+<a name="ln1009">  while (itr-&gt;node) {</a>
+<a name="ln1010">    mtpos_t pos = marktree_itr_pos(itr);</a>
+<a name="ln1011">    if (!pos_leq(pos, end) || (pos.row == end.row &amp;&amp; pos.col == end.col</a>
+<a name="ln1012">                               &amp;&amp; rawkey(itr).id &amp; RIGHT_GRAVITY)) {</a>
+<a name="ln1013">      break;</a>
+<a name="ln1014">    }</a>
+<a name="ln1015">    relative(start, &amp;pos);</a>
+<a name="ln1016">    kv_push(saved, ((mtkey_t){ .pos = pos, .id = rawkey(itr).id }));</a>
+<a name="ln1017">    marktree_del_itr(b, itr, false);</a>
+<a name="ln1018">  }</a>
+<a name="ln1019"> </a>
+<a name="ln1020">  marktree_splice(b, start.row, start.col, size.row, size.col, 0, 0);</a>
+<a name="ln1021">  mtpos_t new = { new_row, new_col };</a>
+<a name="ln1022">  marktree_splice(b, new.row, new.col,</a>
+<a name="ln1023">                  0, 0, size.row, size.col);</a>
+<a name="ln1024"> </a>
+<a name="ln1025">  for (size_t i = 0; i &lt; kv_size(saved); i++) {</a>
+<a name="ln1026">    mtkey_t item = kv_A(saved, i);</a>
+<a name="ln1027">    unrelative(new, &amp;item.pos);</a>
+<a name="ln1028">    marktree_put_key(b, item.pos.row, item.pos.col, item.id);</a>
+<a name="ln1029">  }</a>
+<a name="ln1030">  kv_destroy(saved);</a>
+<a name="ln1031">}</a>
+<a name="ln1032"> </a>
+<a name="ln1033">/// @param itr OPTIONAL. set itr to pos.</a>
+<a name="ln1034">mtpos_t marktree_lookup(MarkTree *b, uint64_t id, MarkTreeIter *itr)</a>
+<a name="ln1035">{</a>
+<a name="ln1036">  mtnode_t *n = pmap_get(uint64_t)(b-&gt;id2node, id);</a>
+<a name="ln1037">  if (n == NULL) {</a>
+<a name="ln1038">    if (itr) {</a>
+<a name="ln1039">      itr-&gt;node = NULL;</a>
+<a name="ln1040">    }</a>
+<a name="ln1041">    return (mtpos_t){ -1, -1 };</a>
+<a name="ln1042">  }</a>
+<a name="ln1043">  int i = 0;</a>
+<a name="ln1044">  for (i = 0; i &lt; n-&gt;n; i++) {</a>
+<a name="ln1045">    if (ANTIGRAVITY(n-&gt;key[i].id) == id) {</a>
+<a name="ln1046">      goto found;</a>
+<a name="ln1047">    }</a>
+<a name="ln1048">  }</a>
+<a name="ln1049">  abort();</a>
+<a name="ln1050">found: {}</a>
+<a name="ln1051">  mtpos_t pos = n-&gt;key[i].pos;</a>
+<a name="ln1052">  if (itr) {</a>
+<a name="ln1053">    itr-&gt;i = i;</a>
+<a name="ln1054">    itr-&gt;node = n;</a>
+<a name="ln1055">    itr-&gt;lvl = b-&gt;root-&gt;level - n-&gt;level;</a>
+<a name="ln1056">  }</a>
+<a name="ln1057">  while (n-&gt;parent != NULL) {</a>
+<a name="ln1058">    mtnode_t *p = n-&gt;parent;</a>
+<a name="ln1059">    for (i = 0; i &lt; p-&gt;n+1; i++) {</a>
+<a name="ln1060">      if (p-&gt;ptr[i] == n) {</a>
+<a name="ln1061">        goto found_node;</a>
+<a name="ln1062">      }</a>
+<a name="ln1063">    }</a>
+<a name="ln1064">    abort();</a>
+<a name="ln1065">found_node:</a>
+<a name="ln1066">    if (itr) {</a>
+<a name="ln1067">      itr-&gt;s[b-&gt;root-&gt;level-p-&gt;level].i = i;</a>
+<a name="ln1068">    }</a>
+<a name="ln1069">    if (i &gt; 0) {</a>
+<a name="ln1070">      unrelative(p-&gt;key[i-1].pos, &amp;pos);</a>
+<a name="ln1071">    }</a>
+<a name="ln1072">    n = p;</a>
+<a name="ln1073">  }</a>
+<a name="ln1074">  if (itr) {</a>
+<a name="ln1075">    marktree_itr_fix_pos(b, itr);</a>
+<a name="ln1076">  }</a>
+<a name="ln1077">  return pos;</a>
+<a name="ln1078">}</a>
+<a name="ln1079"> </a>
+<a name="ln1080">static void marktree_itr_fix_pos(MarkTree *b, MarkTreeIter *itr)</a>
+<a name="ln1081">{</a>
+<a name="ln1082">  itr-&gt;pos = (mtpos_t){ 0, 0 };</a>
+<a name="ln1083">  mtnode_t *x = b-&gt;root;</a>
+<a name="ln1084">  for (int lvl = 0; lvl &lt; itr-&gt;lvl; lvl++) {</a>
+<a name="ln1085">    itr-&gt;s[lvl].oldcol = itr-&gt;pos.col;</a>
+<a name="ln1086">    int i = itr-&gt;s[lvl].i;</a>
+<a name="ln1087">    if (i &gt; 0) {</a>
+<a name="ln1088">      compose(&amp;itr-&gt;pos, x-&gt;key[i-1].pos);</a>
+<a name="ln1089">    }</a>
+<a name="ln1090">    assert(x-&gt;level);</a>
+<a name="ln1091">    x = x-&gt;ptr[i];</a>
+<a name="ln1092">  }</a>
+<a name="ln1093">  assert(x == itr-&gt;node);</a>
+<a name="ln1094">}</a>
+<a name="ln1095"> </a>
+<a name="ln1096">void marktree_check(MarkTree *b)</a>
+<a name="ln1097">{</a>
+<a name="ln1098">#ifndef NDEBUG</a>
+<a name="ln1099">  if (b-&gt;root == NULL) {</a>
+<a name="ln1100">    assert(b-&gt;n_keys == 0);</a>
+<a name="ln1101">    assert(b-&gt;n_nodes == 0);</a>
+<a name="ln1102">    assert(b-&gt;id2node == NULL || map_size(b-&gt;id2node) == 0);</a>
+<a name="ln1103">    return;</a>
+<a name="ln1104">  }</a>
+<a name="ln1105"> </a>
+<a name="ln1106">  mtpos_t dummy;</a>
+<a name="ln1107">  bool last_right = false;</a>
+<a name="ln1108">  size_t nkeys = check_node(b, b-&gt;root, &amp;dummy, &amp;last_right);</a>
+<a name="ln1109">  assert(b-&gt;n_keys == nkeys);</a>
+<a name="ln1110">  assert(b-&gt;n_keys == map_size(b-&gt;id2node));</a>
+<a name="ln1111">#else</a>
+<a name="ln1112">  // Do nothing, as assertions are required</a>
+<a name="ln1113">  (void)b;</a>
+<a name="ln1114">#endif</a>
+<a name="ln1115">}</a>
+<a name="ln1116"> </a>
+<a name="ln1117">#ifndef NDEBUG</a>
+<a name="ln1118">static size_t check_node(MarkTree *b, mtnode_t *x,</a>
+<a name="ln1119">                         mtpos_t *last, bool *last_right)</a>
+<a name="ln1120">{</a>
+<a name="ln1121">  assert(x-&gt;n &lt;= 2 * T - 1);</a>
+<a name="ln1122">  // TODO(bfredl): too strict if checking &quot;in repair&quot; post-delete tree.</a>
+<a name="ln1123">  assert(x-&gt;n &gt;= (x != b-&gt;root ? T-1 : 0));</a>
+<a name="ln1124">  size_t n_keys = (size_t)x-&gt;n;</a>
+<a name="ln1125"> </a>
+<a name="ln1126">  for (int i = 0; i &lt; x-&gt;n; i++) {</a>
+<a name="ln1127">    if (x-&gt;level) {</a>
+<a name="ln1128">      n_keys += check_node(b, x-&gt;ptr[i], last, last_right);</a>
+<a name="ln1129">    } else {</a>
+<a name="ln1130">      *last = (mtpos_t) { 0, 0 };</a>
+<a name="ln1131">    }</a>
+<a name="ln1132">    if (i &gt; 0) {</a>
+<a name="ln1133">      unrelative(x-&gt;key[i-1].pos, last);</a>
+<a name="ln1134">    }</a>
+<a name="ln1135">    if (x-&gt;level) {</a>
+<a name="ln1136">    }</a>
+<a name="ln1137">    assert(pos_leq(*last, x-&gt;key[i].pos));</a>
+<a name="ln1138">    if (last-&gt;row == x-&gt;key[i].pos.row &amp;&amp; last-&gt;col == x-&gt;key[i].pos.col) {</a>
+<a name="ln1139">      assert(!*last_right || IS_RIGHT(x-&gt;key[i].id));</a>
+<a name="ln1140">    }</a>
+<a name="ln1141">    *last_right = IS_RIGHT(x-&gt;key[i].id);</a>
+<a name="ln1142">    assert(x-&gt;key[i].pos.col &gt;= 0);</a>
+<a name="ln1143">    assert(pmap_get(uint64_t)(b-&gt;id2node, ANTIGRAVITY(x-&gt;key[i].id)) == x);</a>
+<a name="ln1144">  }</a>
+<a name="ln1145"> </a>
+<a name="ln1146">  if (x-&gt;level) {</a>
+<a name="ln1147">    n_keys += check_node(b, x-&gt;ptr[x-&gt;n], last, last_right);</a>
+<a name="ln1148">    unrelative(x-&gt;key[x-&gt;n-1].pos, last);</a>
+<a name="ln1149"> </a>
+<a name="ln1150">    for (int i = 0; i &lt; x-&gt;n+1; i++) {</a>
+<a name="ln1151">      assert(x-&gt;ptr[i]-&gt;parent == x);</a>
+<a name="ln1152">      assert(x-&gt;ptr[i]-&gt;level == x-&gt;level-1);</a>
+<a name="ln1153">      // PARANOIA: check no double node ref</a>
+<a name="ln1154">      for (int j = 0; j &lt; i; j++) {</a>
+<a name="ln1155">        assert(x-&gt;ptr[i] != x-&gt;ptr[j]);</a>
+<a name="ln1156">      }</a>
+<a name="ln1157">    }</a>
+<a name="ln1158">  } else {</a>
+<a name="ln1159">    *last = x-&gt;key[x-&gt;n-1].pos;</a>
+<a name="ln1160">  }</a>
+<a name="ln1161">  return n_keys;</a>
+<a name="ln1162">}</a>
+<a name="ln1163">#endif</a>
+<a name="ln1164"> </a>
+<a name="ln1165">char *mt_inspect_rec(MarkTree *b)</a>
+<a name="ln1166">{</a>
+<a name="ln1167">  garray_T ga;</a>
+<a name="ln1168">  ga_init(&amp;ga, (int)sizeof(char), 80);</a>
+<a name="ln1169">  mtpos_t p = { 0, 0 };</a>
+<a name="ln1170">  mt_inspect_node(b, &amp;ga, b-&gt;root, p);</a>
+<a name="ln1171">  return ga.ga_data;</a>
+<a name="ln1172">}</a>
+<a name="ln1173"> </a>
+<a name="ln1174">void mt_inspect_node(MarkTree *b, garray_T *ga, mtnode_t *n, mtpos_t off)</a>
+<a name="ln1175">{</a>
+<a name="ln1176">  static char buf[1024];</a>
+<a name="ln1177">#define GA_PUT(x) ga_concat(ga, (char_u *)(x))</a>
+<a name="ln1178">  GA_PUT(&quot;[&quot;);</a>
+<a name="ln1179">  if (n-&gt;level) {</a>
+<a name="ln1180">    mt_inspect_node(b, ga, n-&gt;ptr[0], off);</a>
+<a name="ln1181">  }</a>
+<a name="ln1182">  for (int i = 0; i &lt; n-&gt;n; i++) {</a>
+<a name="ln1183">    mtpos_t p = n-&gt;key[i].pos;</a>
+<a name="ln1184">    unrelative(off, &amp;p);</a>
+<a name="ln1185">    snprintf((char *)buf, sizeof(buf), &quot;%d/%d&quot;, p.row, p.col);</a>
+<a name="ln1186">    GA_PUT(buf);</a>
+<a name="ln1187">    if (n-&gt;level) {</a>
+<a name="ln1188">      mt_inspect_node(b, ga, n-&gt;ptr[i+1], p);</a>
+<a name="ln1189">    } else {</a>
+<a name="ln1190">      GA_PUT(&quot;,&quot;);</a>
+<a name="ln1191">    }</a>
+<a name="ln1192">  }</a>
+<a name="ln1193">  GA_PUT(&quot;]&quot;);</a>
+<a name="ln1194">#undef GA_PUT</a>
+<a name="ln1195">}</a>
+<a name="ln1196"> </a>
 
 </code></pre>
 <div class="balloon" rel="164"><p><span style="font-size:18px">&uarr;</span> <a href="https://pvs-studio.com/en/docs/warnings/v512/" target="_blank">V512</a> A call of the 'memcpy' function will lead to underflow of the buffer 'z->key'.</p></div>
